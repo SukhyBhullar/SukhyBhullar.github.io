@@ -2,14 +2,15 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-
-import { useUser } from "@auth0/nextjs-auth0";
-import Link from "next/link";
+import LoginButton from "../components/loginButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Home: NextPage = () => {
-  const { user, error, isLoading } = useUser();
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  // if (isLoading) {
+  //   return <div>Loading ...</div>;
+  // }
 
   return (
     <div className={styles.container}>
@@ -20,10 +21,14 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <div>login <Link href={'/api/auth/login'} >Login</Link></div>
-        <div>
-          Welcome {user?.name}! <Link href="/api/auth/logout">Logout</Link>
-        </div>
+        {isAuthenticated && (
+          <div>
+            <h2>{user?.name}</h2>
+            <p>{user?.email}</p>
+          </div>
+        )}
+
+        {!isAuthenticated && <LoginButton></LoginButton>}
       </main>
 
       <footer className={styles.footer}>

@@ -6,6 +6,10 @@ const nextConfig = {
     loader: 'akamai',
     path: '',
   },
+  publicRuntimeConfig: {
+    // Will be available on both server and client
+    baseUrl: '/static',
+  },
 }
 
 module.exports = nextConfig
