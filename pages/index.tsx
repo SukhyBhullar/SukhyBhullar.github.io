@@ -22,7 +22,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div>login <Link href={'/api/auth/login'} >Login</Link></div>
         <div>
-          Welcome {user?.name}! <a href="/api/auth/logout">Logout</a>
+          Welcome {user?.name}! <Link href="/api/auth/logout">Logout</Link>
         </div>
       </main>
 
