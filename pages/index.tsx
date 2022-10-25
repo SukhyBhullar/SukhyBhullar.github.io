@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import LoginButton from "../components/loginButton";
+import LoginButton from "../components/auth/loginButton";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Home: NextPage = () => {
