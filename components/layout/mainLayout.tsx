@@ -8,14 +8,11 @@ interface Props {
 }
 
 const MainLayout: React.FC<Props> = ({ children }) => {
-  const { isAuthenticated, isLoading, loginWithRedirect, logout } =
+  const { isAuthenticated, loginWithRedirect, logout } =
     useAuth0();
 
   const [theme, setTheme] = useState("dark");
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
   // const onThemeChange = () => {
   //   setTheme("bumblebee");
   // };
