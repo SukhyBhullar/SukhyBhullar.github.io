@@ -1,4 +1,4 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useUser } from '@auth0/nextjs-auth0';
 import { useState } from "react";
 import Image from "next/image";
 import Head from "next/head";
@@ -8,8 +8,7 @@ interface Props {
 }
 
 const MainLayout: React.FC<Props> = ({ children }) => {
-  const { isAuthenticated, loginWithRedirect, logout } =
-    useAuth0();
+  const { user, isLoading, error} = useUser();
 
   const [theme, setTheme] = useState("dark");
 
@@ -40,17 +39,15 @@ const MainLayout: React.FC<Props> = ({ children }) => {
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal p-0">
-            {!isAuthenticated && (
+            {!user && (
               <li>
-                <a onClick={loginWithRedirect}>Sign in</a>
+                <a href="/api/auth/login">Sign in</a>
               </li>
             )}
-            {isAuthenticated && (
+            {user && (
               <>
                 <li>
-                  <a
-                    onClick={() => logout({ returnTo: window.location.origin })}
-                  >
+                <a href="/api/auth/logout">
                     Log out
                   </a>
                 </li>

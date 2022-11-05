@@ -1,21 +1,22 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import type { NextPage } from "next";
 import MainLayout from "../components/layout/mainLayout";
-
+import { useUser } from '@auth0/nextjs-auth0';
 const Home: NextPage = () => {
-  const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+  const { user, isLoading, error} = useUser();
 
   if (isLoading) {
     return <div>Loading ...</div>;
   }
+  if (error) return <div>{error.message}</div>;
+  
   return (
     <MainLayout>
-      {!isAuthenticated && (
+      {!user && (
         <div className="m-9">
           <span>Welcome to planetary, log in to start playing</span>
         </div>
       )}
-      {isAuthenticated && (
+      {user && (
         <div className="m-9">
           <button className="btn btn-primary">Create New Game</button>
         </div>

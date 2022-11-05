@@ -10,9 +10,11 @@ on:
       - main
 
 env:
-  NEXT_PUBLIC_AUTH0_BASE_URL: 'https://lively-mushroom-01210c903.2.azurestaticapps.net/'
-  NEXT_PUBLIC_AUTH0_ISSUER_BASE_URL: 'https://sukhytest.eu.auth0.com'
-  NEXT_PUBLIC_AUTH0_CLIENT_ID: 'KtBYN7m1kEDxhgr0eYoa1j5MDxhogupb'
+  AUTH0_BASE_URL: 'https://lively-mushroom-01210c903.2.azurestaticapps.net/'
+  AUTH0_ISSUER_BASE_URL: 'https://sukhytest.eu.auth0.com'
+  AUTH0_CLIENT_ID: 'KtBYN7m1kEDxhgr0eYoa1j5MDxhogupb'
+  AUTH0_SECRET: ${{ secrets.AUTH0SECRET }}
+  AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0CLIENTSECRET }}
 
 jobs:
   build_and_deploy_job:
