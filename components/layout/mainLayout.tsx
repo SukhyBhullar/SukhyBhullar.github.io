@@ -2,6 +2,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { useState } from "react";
 import Image from "next/image";
 import Head from "next/head";
+import Link from 'next/link';
 
 interface Props {
   children: any;
@@ -41,15 +42,15 @@ const MainLayout: React.FC<Props> = ({ children }) => {
           <ul className="menu menu-horizontal p-0">
             {!user && (
               <li>
-                <a href="/api/auth/login">Sign in</a>
+                <Link href="/api/auth/login">Sign in</Link >
               </li>
             )}
             {user && (
               <>
                 <li>
-                <a href="/api/auth/logout">
+                <Link href="/api/auth/logout">
                     Log out
-                  </a>
+                  </Link >
                 </li>
               </>
             )}
