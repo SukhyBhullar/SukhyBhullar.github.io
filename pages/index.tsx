@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       )}
       {user && (
         <div className="m-9">
-          <button className="btn btn-primary">Create New Game</button>
+          <button className="btn btn-primary">Create Game</button>
         </div>
       )}
     </MainLayout>
