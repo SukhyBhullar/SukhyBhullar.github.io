@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import MainLayout from "../components/layout/mainLayout";
 import { useUser } from '@auth0/nextjs-auth0';
+import Link from "next/link";
 const Home: NextPage = () => {
   const { user, isLoading, error} = useUser();
 
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
       )}
       {user && (
         <div className="m-9">
-          <button className="btn btn-primary">Create New Game</button>
+          <Link href="/game/createGame"><button className="btn btn-primary">Create New Game</button></Link>
         </div>
       )}
     </MainLayout>
