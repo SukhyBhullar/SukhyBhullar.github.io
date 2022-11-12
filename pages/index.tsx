@@ -19,7 +19,8 @@ const Home: NextPage = () => {
       )}
       {user && (
         <div className="m-9">
-          <Link href="/game/createGame"><button className="btn btn-primary">Create New Game</button></Link>
+          <Link href="/game/createGame"><button className="btn btn-primary">Create Game</button></Link>
+          <Link href="/game/loadGame"><button className="btn btn-primary">Load Game</button></Link>
         </div>
       )}
     </MainLayout>
