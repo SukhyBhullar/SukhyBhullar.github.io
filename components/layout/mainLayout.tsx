@@ -5,7 +5,7 @@ import Head from "next/head";
 import Link from 'next/link';
 
 interface Props {
-  children: any;
+  children: React.ReactNode
 }
 
 const MainLayout: React.FC<Props> = ({ children }) => {

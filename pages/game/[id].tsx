@@ -1,5 +1,6 @@
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import React from "react";
+import CenteredBox from "../../components/common/centeredBox";
 import MainLayout from "../../components/layout/mainLayout";
 import { Game, id } from "../../domain/games";
 
@@ -10,15 +11,13 @@ type Props = { data: GetGamesResponse };
 const LoadGame = (props: Props) => {
   return (
     <MainLayout>
-      <div className="mx-auto my-auto w-1/4 h-screen flex flex-col justify-center">
-        <div className="flex flex-col rounded boxborder p-7 gap-6">
-          <div className="flex flex-col gap-6 mx-auto w-3/4">
-                <h2 className="text-xl font-bold text-white">
-                  Welcome Captain {props.data.callSign}
-                </h2>
-          </div>
+      <CenteredBox className="w-1/4">
+        <div className="flex flex-col gap-6 mx-auto w-3/4">
+          <h2 className="text-xl font-bold text-white">
+            Welcome Captain {props.data.callSign}
+          </h2>
         </div>
-      </div>
+      </CenteredBox>
     </MainLayout>
   );
 };
