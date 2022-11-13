@@ -23,7 +23,7 @@ const LoadGame = (props: Props) => {
               </h2>
               <a
                 className="btn btn-primary"
-                href={`http://localhost:3000/game/${game.id}`}
+                href={`/game/${game.id}`}
               >
                 Load Game
               </a>
