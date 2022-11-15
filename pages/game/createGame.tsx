@@ -57,14 +57,17 @@ const CreateGame = (props: Props) => {
         <LabeledTextbox
           label="Call Sign"
           onChange={(e) => setCallSign(e.target.value)}
+          maxLength={12}
         />
         <LabeledTextbox
           label="First Name"
           onChange={(e) => setFirstName(e.target.value)}
+          maxLength={20}
         />
         <LabeledTextbox
           label="Last Name"
           onChange={(e) => setLastName(e.target.value)}
+          maxLength={20}
         />
         <button className="btn btn-primary" onClick={handleCreate}>
           Create New Game
