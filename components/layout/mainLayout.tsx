@@ -42,7 +42,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
           <ul className="menu menu-horizontal p-0">
             {!user && (
               <li>
-                <Link href="/api/auth/login">Sign in</Link >
+                <Link href="/api/auth/login">Log in</Link >
               </li>
             )}
             {user && (
