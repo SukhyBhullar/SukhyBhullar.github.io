@@ -28,3 +28,9 @@ a {
     background: black;
   }
 }
+
+.boxborder {
+  border: 1px solid;
+  border-color: hsl(var(--bc) / var(--tw-border-opacity));
+  --tw-border-opacity: 0.2;
+}
