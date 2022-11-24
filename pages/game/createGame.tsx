@@ -20,7 +20,7 @@ const CreateGame = (props: Props) => {
   const mutation = useMutation({
     mutationFn: async (game: Game) => {
       const newGame = await axios.post("/api/games", game);
-      router.push(newGame.data.id);
+      router.push(`/place/${newGame.data.currentPlace}`);
     },
   });
 
@@ -53,7 +53,7 @@ const CreateGame = (props: Props) => {
         <div className="mx-auto">
           <h2 className="text-xl font-bold text-white">Create Game</h2>
         </div>
-        {alert && <Alert message={alert}/>}
+        {alert && <Alert message={alert} />}
         <LabeledTextbox
           label="Call Sign"
           onChange={(e) => setCallSign(e.target.value)}
