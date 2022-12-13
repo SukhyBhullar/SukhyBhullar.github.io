@@ -1,4 +1,6 @@
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import axios from "axios";
+import router from "next/router";
 import React from "react";
 import CenteredBox from "../../components/common/centeredBox";
 import MainLayout from "../../components/layout/mainLayout";
@@ -7,6 +9,13 @@ import { Game, id } from "../../domain/games";
 type GetGamesResponse = id & Game;
 
 type Props = { data: GetGamesResponse[] };
+
+const LoadGameClicked = async (gameId: string) => {
+  window.sessionStorage.setItem("currentGame", gameId);
+  // ​/user​/{userid}​/games​/{id}
+  const newGame = await axios.get(`/api/games?id=${gameId}`);
+  router.push(`/place/${newGame.data.currentPlace}`);
+};
 
 const LoadGame = (props: Props) => {
   return (
@@ -21,12 +30,12 @@ const LoadGame = (props: Props) => {
               <h2 className="text-xl font-bold text-white">
                 Captain {game.callSign}
               </h2>
-              <a
+              <button
                 className="btn btn-primary"
-                href={`/game/${game.id}`}
+                onClick={() => LoadGameClicked(game.id)}
               >
                 Load Game
-              </a>
+              </button>
             </div>
           ))}
         </div>

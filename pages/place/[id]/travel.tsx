@@ -1,8 +1,11 @@
 import React from "react";
 import MainLayout from "../../../components/layout/mainLayout";
 import { GetStaticPaths, GetStaticProps } from "next";
-import Link from "next/link";
 import { getAllPlaces, getAllSolarSystems } from "../../../data/cmsData";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import router from "next/router";
+import { id } from "../../../domain/games";
 
 type Props = {
   _id: string;
@@ -20,6 +23,20 @@ type Props = {
 };
 
 const PlaceTravel = (props: Props) => {
+  const mutation = useMutation({
+    mutationFn: async (placeId: string) => {
+      await axios.post<id & { place: string }>(`/api/setCurrentPlace/`, {
+        id: window.sessionStorage.getItem("currentGame"),
+        place: placeId,
+      });
+      router.push(`/place/${placeId}`);
+    },
+  });
+
+  const onTravelClicked = (placeId: string) => {
+    mutation.mutate(placeId);
+  };
+
   return (
     <MainLayout>
       <div className="container p-4">
@@ -31,9 +48,12 @@ const PlaceTravel = (props: Props) => {
             className="flex flex-row justify-between items-center rounded-xl boxborder p-7 gap-6 w-2/3"
           >
             <p className="text-xl">{travel.name}</p>
-            <Link href={`/place/${travel._id}/`}>
-              <div className="btn btn-primary">Travel</div>
-            </Link>
+            <button
+              className="btn btn-primary"
+              onClick={() => onTravelClicked(travel._id)}
+            >
+              Travel
+            </button>
           </div>
         ))}
       </div>
