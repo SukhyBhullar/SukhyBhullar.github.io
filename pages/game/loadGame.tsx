@@ -3,6 +3,7 @@ import axios from "axios";
 import router from "next/router";
 import React from "react";
 import CenteredBox from "../../components/common/centeredBox";
+import Info from "../../components/common/info";
 import MainLayout from "../../components/layout/mainLayout";
 import { Game, id } from "../../domain/games";
 
@@ -22,6 +23,7 @@ const LoadGame = (props: Props) => {
     <MainLayout>
       <CenteredBox className="w-1/4">
         <div className="flex flex-col gap-6 mx-auto w-3/4">
+          {props.data.length === 0 && <Info message={"Please create a game"} />}
           {props.data.map((game) => (
             <div
               key={game.id}
