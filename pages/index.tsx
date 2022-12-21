@@ -4,12 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
 import CenteredBox from "../components/common/centeredBox";
 const Home: NextPage = () => {
-  const { user, isLoading, error } = useUser();
-
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
-  if (error) return <div>{error.message}</div>;
+  const { user } = useUser();
 
   return (
     <MainLayout>

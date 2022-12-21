@@ -3,13 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    loader: 'akamai',
-    path: '',
+    loader: "akamai",
+    path: "/public",
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    baseUrl: '/static',
+    baseUrl: "/static",
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
