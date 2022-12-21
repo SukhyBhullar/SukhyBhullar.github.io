@@ -1,21 +1,22 @@
-import { useUser } from '@auth0/nextjs-auth0';
+/* eslint-disable @next/next/no-img-element */
+import { useUser } from "@auth0/nextjs-auth0";
 import { useState } from "react";
-import Image from "next/image";
 import Head from "next/head";
-import Link from 'next/link';
+import Link from "next/link";
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const MainLayout: React.FC<Props> = ({ children }) => {
-  const { user, isLoading, error} = useUser();
+  const { user, isLoading, error } = useUser();
 
   const [theme, setTheme] = useState("dark");
 
-  // const onThemeChange = () => {
-  //   setTheme("bumblebee");
-  // };
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+  if (error) return <div>{error.message}</div>;
 
   return (
     <div data-theme={theme} className="">
@@ -27,12 +28,10 @@ const MainLayout: React.FC<Props> = ({ children }) => {
 
       <div className="navbar bg-base-300 shadow-xl">
         <div className="flex-1 gap-2">
-          <Image
-            src="./planetlogo.svg"
+          <img
+            src="/planetlogo.svg"
             className="ml-3 mr-3 h-6 sm:h-9 fill-white"
             alt="Planetary Logo"
-            width={32}
-            height={32}
           />
           <span className="self-center whitespace-nowrap text-2xl font-semibold text-white">
             Planetary
@@ -42,15 +41,13 @@ const MainLayout: React.FC<Props> = ({ children }) => {
           <ul className="menu menu-horizontal p-0">
             {!user && (
               <li>
-                <Link href="/api/auth/login">Log in</Link >
+                <Link href="/api/auth/login">Log in</Link>
               </li>
             )}
             {user && (
               <>
                 <li>
-                <Link href="/api/auth/logout">
-                    Log out
-                  </Link >
+                  <Link href="/api/auth/logout">Log out</Link>
                 </li>
               </>
             )}
