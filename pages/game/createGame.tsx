@@ -20,7 +20,7 @@ const CreateGame = (props: Props) => {
   const mutation = useMutation({
     mutationFn: async (game: Game) => {
       const newGame = await axios.post("/api/games", game);
-      window.sessionStorage.setItem("currentGame", newGame.data.id);
+      window.sessionStorage.setItem("currentGame", newGame.data.gameId);
       router.push(`/place/${newGame.data.currentPlace}`);
     },
   });

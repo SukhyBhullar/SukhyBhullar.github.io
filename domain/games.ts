@@ -11,3 +11,11 @@ export type id = {
 export type userId = {
   userId: string;
 };
+
+export type Id = {
+  id: string;
+};
+
+export type currentPlace = {
+  currentPlace: string;
+};

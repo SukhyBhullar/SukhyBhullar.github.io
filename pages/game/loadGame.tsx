@@ -6,6 +6,7 @@ import CenteredBox from "../../components/common/centeredBox";
 import Info from "../../components/common/info";
 import MainLayout from "../../components/layout/mainLayout";
 import { Game, id } from "../../domain/games";
+import { FindAll } from "../../data/mongoInstance";
 
 type GetGamesResponse = id & Game;
 
@@ -49,14 +50,8 @@ const LoadGame = (props: Props) => {
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
     const session = getSession(ctx.req, ctx.res);
-    const url = new URL(
-      `api/user/${session?.user.sub}/games/?code=${process.env.AZURE_FUNC_CODE}`,
-      process.env.AZURE_FUNC_URL
-    ).href;
-
-    const res = await fetch(url);
-    const data = await res.json();
-
+    const data = await FindAll("games", session?.user.sub);
+    console.log(data);
     return { props: { data } };
   },
 });

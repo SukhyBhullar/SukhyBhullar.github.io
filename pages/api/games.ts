@@ -1,6 +1,6 @@
 import { withApiAuthRequired, getSession } from "@auth0/nextjs-auth0";
-import axios from "axios";
-import { Game, id, userId } from "../../domain/games";
+import { Game, currentPlace, id, userId } from "../../domain/games";
+import { Mongo, FindById } from "../../data/mongoInstance";
 
 export type LoadGameDto = id & userId & Game;
 
@@ -9,36 +9,41 @@ export default withApiAuthRequired(async (req, res) => {
 
   const body: Game = req.body;
 
+  const games = "games";
+
   if (!session) {
     res.status(401).end();
   }
 
   if (req.method === "POST") {
-    const url = new URL(
-      `/api/CreateGame?code=${process.env.AZURE_FUNC_CODE}`,
-      process.env.AZURE_FUNC_URL
-    ).href;
-    const response = await axios.post<userId & Game>(url, {
+    const game: userId & Game & currentPlace = {
       userId: session?.user.sub,
       callSign: body.callSign,
       firstName: body.firstName,
       lastName: body.lastName,
-    });
-    console.log(req.body.name, session?.user.sub);
-    res.status(200).json(response.data);
+      currentPlace: "92ac2107-2b20-42f7-bb1c-17af5260883d",
+    };
+
+    const result = await (await Mongo()).collection(games).insertOne(game);
+    console.log(result);
+    const insertedGame: userId & id & Game = {
+      ...game,
+      id: result.insertedId.toString(),
+    };
+
+    res.status(200).json(insertedGame);
+    return;
   }
   if (req.method === "GET") {
-    const url = new URL(
-      `/api/user/${encodeURI(session?.user.sub)}/games/${req.query.id}?code=${
-        process.env.AZURE_FUNC_CODE
-      }`,
-      process.env.AZURE_FUNC_URL
-    ).href;
-    const response = await axios.get(url);
     console.log(req.body.name, session?.user.sub);
-    res.status(200).json(response.data);
+    const result = await FindById(
+      games,
+      req.query.id as string,
+      session?.user.sub
+    );
+    res.status(200).json(result);
+    return;
   }
-  // else {
-  //   res.status(405).end();
-  // }
+
+  res.status(405).end();
 });
